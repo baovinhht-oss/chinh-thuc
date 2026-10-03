@@ -105,8 +105,7 @@
     box-shadow: 0 30px 60px -30px rgba(0,10,40,0.7);
   }
   /* esports corner-bracket framing — signature element */
-  .panel::before, .panel::after,
-  .corner-tl, .corner-br{ content:''; position:absolute; width:22px; height:22px; pointer-events:none; }
+  .panel::before, .panel::after{ content:''; position:absolute; width:22px; height:22px; pointer-events:none; }
   .panel::before{ top:-1px; left:-1px; border-top:2px solid var(--cyan); border-left:2px solid var(--cyan); border-radius: 20px 0 0 0; }
   .panel::after{ bottom:-1px; right:-1px; border-bottom:2px solid var(--cyan); border-right:2px solid var(--cyan); border-radius: 0 0 20px 0; }
 
@@ -120,29 +119,6 @@
     content:''; width:4px; height:16px; border-radius:2px;
     background: linear-gradient(180deg, var(--cyan), var(--blue-1));
   }
-
-  /* mode toggle */
-  .mode-toggle{
-    display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:8px;
-  }
-  .mode-option{ position:relative; }
-  .mode-option input{ position:absolute; opacity:0; inset:0; cursor:pointer; margin:0; width:100%; height:100%; }
-  .mode-card{
-    border:1px solid var(--line); border-radius: 12px; padding:18px 16px;
-    background: rgba(15,24,48,0.5);
-    transition: all 0.2s ease;
-    text-align:center;
-  }
-  .mode-card .icon{ font-size:22px; display:block; margin-bottom:8px; }
-  .mode-card .label{ font-weight:700; font-size:15px; color:var(--text-0); }
-  .mode-card .desc{ font-size:12.5px; color:var(--text-2); margin-top:4px; }
-  .mode-option input:checked + .mode-card{
-    border-color: var(--cyan);
-    background: linear-gradient(180deg, rgba(56,225,255,0.1), rgba(46,99,255,0.06));
-    box-shadow: 0 0 0 1px rgba(56,225,255,0.35), 0 0 30px -8px rgba(56,225,255,0.5);
-  }
-  .mode-option input:focus-visible + .mode-card{ outline: 2px solid var(--cyan); outline-offset:2px; }
-  .mode-option input:checked + .mode-card .label{ color:var(--cyan); }
 
   /* fields */
   .field{ margin-bottom:18px; }
@@ -162,47 +138,6 @@
     box-shadow: 0 0 0 3px rgba(79,140,255,0.18);
   }
   .grid-2{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-  .grid-3{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
-
-  /* member card */
-  .member-card{
-    border:1px solid var(--line); border-radius:14px; padding:20px 20px 6px;
-    background: rgba(6,10,23,0.35); margin-bottom:16px; position:relative;
-  }
-  .member-card.captain{ border-color: rgba(56,225,255,0.4); background: linear-gradient(180deg, rgba(56,225,255,0.06), transparent); }
-  .member-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
-  .member-tag{
-    display:inline-flex; align-items:center; gap:6px;
-    font-family:'Orbitron', sans-serif; font-size:11px; letter-spacing:0.1em; text-transform:uppercase;
-    color: var(--text-1);
-  }
-  .member-card.captain .member-tag{ color: var(--cyan); }
-  .member-tag .badge{
-    font-size:10px; padding:2px 8px; border-radius:999px; background: rgba(56,225,255,0.14); color:var(--cyan); border:1px solid rgba(56,225,255,0.3);
-  }
-  .btn-remove{
-    background:none; border:1px solid rgba(255,92,122,0.35); color: var(--danger);
-    font-size:12px; padding:5px 11px; border-radius:8px; cursor:pointer; font-family:inherit;
-    transition: all 0.15s ease;
-  }
-  .btn-remove:hover{ background: rgba(255,92,122,0.12); }
-
-  #teamFields{ display:none; }
-  #teamFields.active{ display:block; animation: fadeSlide 0.3s ease; }
-  #soloFields.active{ display:block; animation: fadeSlide 0.3s ease; }
-  #soloFields{ display:none; }
-  @keyframes fadeSlide{ from{ opacity:0; transform:translateY(-6px);} to{ opacity:1; transform:translateY(0);} }
-
-  .btn-add{
-    width:100%; padding:13px; border-radius:10px; cursor:pointer; font-family:'Be Vietnam Pro', sans-serif;
-    background: transparent; border:1.5px dashed rgba(79,140,255,0.5); color: var(--blue-2);
-    font-weight:600; font-size:14px; margin-top:4px; margin-bottom:8px;
-    transition: all 0.18s ease;
-    display:flex; align-items:center; justify-content:center; gap:8px;
-  }
-  .btn-add:hover{ border-color: var(--cyan); color: var(--cyan); background: rgba(56,225,255,0.05); }
-
-  .hint{ font-size:12.5px; color: var(--text-2); margin-top:-6px; margin-bottom:18px; }
 
   /* rules / checkbox */
   .rules-box{
@@ -249,6 +184,7 @@
   /* success state */
   .success-panel{ display:none; text-align:center; padding:60px 30px; }
   .success-panel.active{ display:block; animation: fadeSlide 0.4s ease; }
+  @keyframes fadeSlide{ from{ opacity:0; transform:translateY(-6px);} to{ opacity:1; transform:translateY(0);} }
   .success-icon{
     width:64px; height:64px; border-radius:50%; margin:0 auto 20px;
     display:flex; align-items:center; justify-content:center;
@@ -260,9 +196,8 @@
   .success-panel p{ color:var(--text-1); font-size:14.5px; }
 
   @media (max-width: 620px){
-    .grid-2, .grid-3{ grid-template-columns:1fr; }
+    .grid-2{ grid-template-columns:1fr; }
     .panel{ padding:26px 20px; }
-    .mode-toggle{ grid-template-columns:1fr; }
   }
 </style>
 </head>
@@ -278,37 +213,14 @@
   <div class="hero">
     <div class="eyebrow"><span class="dot"></span> ĐĂNG KÝ THI ĐẤU · CỘNG ĐỒNG DISCORD</div>
     <h1 class="title">4SK OPEN<br>CHAMPIONSHIPS</h1>
-    <p class="subtitle">Điền thông tin bên dưới để ghi danh vào giải đấu. Form áp dụng cho mọi thể thức — từ Solo 1v1 đến các đội 2v2, 3v3, 5v5.</p>
+    <p class="subtitle">Điền thông tin bên dưới để ghi danh vào giải đấu.</p>
     <div class="hero-rule"></div>
   </div>
 
   <form id="regForm" novalidate>
 
-    <!-- Hình thức thi đấu -->
+    <!-- Thông tin người chơi -->
     <div class="panel">
-      <div class="section-label">Hình thức thi đấu</div>
-      <div class="mode-toggle" role="radiogroup" aria-label="Hình thức thi đấu">
-        <label class="mode-option">
-          <input type="radio" name="mode" value="solo" checked>
-          <div class="mode-card">
-            <span class="icon">🎮</span>
-            <div class="label">Solo</div>
-            <div class="desc">Thi đấu cá nhân</div>
-          </div>
-        </label>
-        <label class="mode-option">
-          <input type="radio" name="mode" value="team">
-          <div class="mode-card">
-            <span class="icon">🛡️</span>
-            <div class="label">Theo đội</div>
-            <div class="desc">2v2, 3v3, 5v5...</div>
-          </div>
-        </label>
-      </div>
-    </div>
-
-    <!-- Solo fields -->
-    <div class="panel" id="soloFields">
       <div class="section-label">Thông tin người chơi</div>
 
       <div class="field">
@@ -328,53 +240,18 @@
       </div>
     </div>
 
-    <!-- Team fields -->
-    <div class="panel" id="teamFields">
-      <div class="section-label">Thông tin đội</div>
-
-      <div class="field">
-        <label for="teamName">Tên đội <span class="req">*</span></label>
-        <input type="text" id="teamName" name="teamName" placeholder="Ví dụ: 4SK Falcons">
-      </div>
-
-      <div class="member-card captain">
-        <div class="member-head">
-          <span class="member-tag">Đội trưởng <span class="badge">Captain</span></span>
-        </div>
-        <div class="grid-3">
-          <div class="field">
-            <label>Tên <span class="req">*</span></label>
-            <input type="text" name="captainName" placeholder="Tên đội trưởng">
-          </div>
-          <div class="field">
-            <label>In-Game Name <span class="req">*</span></label>
-            <input type="text" name="captainIGN" placeholder="IGN">
-          </div>
-          <div class="field">
-            <label>Discord ID <span class="req">*</span></label>
-            <input type="text" name="captainDiscord" placeholder="@handle">
-          </div>
-        </div>
-      </div>
-
-      <div id="membersList"></div>
-
-      <button type="button" class="btn-add" id="addMemberBtn">+ Thêm thành viên</button>
-      <p class="hint">Thêm số lượng thành viên tùy theo quy mô giải đấu (2v2, 3v3, 5v5...).</p>
-    </div>
-
     <!-- Rules -->
     <div class="panel">
       <div class="section-label">Xác nhận quy định</div>
       <div class="rules-box">
         <ul class="rules-list">
-          <li>Người chơi / đội trưởng cung cấp thông tin chính xác để BTC liên hệ.</li>
+          <li>Người chơi cung cấp thông tin chính xác để BTC liên hệ.</li>
           <li>Có mặt đúng giờ theo lịch thi đấu được thông báo trong Discord.</li>
           <li>Tuân thủ tuyệt đối nội quy giải đấu do Ban Tổ Chức quy định.</li>
         </ul>
         <label class="agree">
           <input type="checkbox" id="agreeRules" required>
-          <span>Tôi (hoặc đội của tôi) <b>đồng ý tuân thủ nội quy giải đấu</b> do Ban Tổ Chức đề ra và chịu trách nhiệm về thông tin đã cung cấp.</span>
+          <span>Tôi <b>đồng ý tuân thủ nội quy giải đấu</b> do Ban Tổ Chức đề ra và chịu trách nhiệm về thông tin đã cung cấp.</span>
         </label>
       </div>
     </div>
@@ -411,75 +288,11 @@
     SCRIPT_URL: 'https://script.google.com/macros/s/AKfycby0KgUFrSBxSOH0o2Uo9b3iiWObx_YCwNoURsHpOiMmL4YbDq2D7qZ0zM2YM8uDh041xw/exec'
   };
 
-  const modeRadios = document.querySelectorAll('input[name="mode"]');
-  const soloFields = document.getElementById('soloFields');
-  const teamFields = document.getElementById('teamFields');
-  const membersList = document.getElementById('membersList');
-  const addMemberBtn = document.getElementById('addMemberBtn');
   const agreeCheckbox = document.getElementById('agreeRules');
   const submitBtn = document.getElementById('submitBtn');
   const form = document.getElementById('regForm');
   const successPanel = document.getElementById('successPanel');
   const formError = document.getElementById('formError');
-
-  let memberCount = 0;
-
-  function syncMode(){
-    const mode = document.querySelector('input[name="mode"]:checked').value;
-    if(mode === 'solo'){
-      soloFields.classList.add('active');
-      teamFields.classList.remove('active');
-    } else {
-      teamFields.classList.add('active');
-      soloFields.classList.remove('active');
-    }
-  }
-  modeRadios.forEach(r => r.addEventListener('change', syncMode));
-  syncMode();
-
-  function addMember(){
-    memberCount++;
-    const idx = memberCount;
-    const card = document.createElement('div');
-    card.className = 'member-card';
-    card.dataset.memberIndex = idx;
-    card.innerHTML = `
-      <div class="member-head">
-        <span class="member-tag">Thành viên ${idx + 1}</span>
-        <button type="button" class="btn-remove" aria-label="Xoá thành viên ${idx + 1}">Xoá</button>
-      </div>
-      <div class="grid-3">
-        <div class="field">
-          <label>Tên</label>
-          <input type="text" name="memberName_${idx}" placeholder="Tên thành viên">
-        </div>
-        <div class="field">
-          <label>In-Game Name</label>
-          <input type="text" name="memberIGN_${idx}" placeholder="IGN">
-        </div>
-        <div class="field">
-          <label>Discord ID</label>
-          <input type="text" name="memberDiscord_${idx}" placeholder="@handle">
-        </div>
-      </div>
-    `;
-    membersList.appendChild(card);
-    card.querySelector('.btn-remove').addEventListener('click', () => {
-      card.remove();
-      renumberMembers();
-    });
-  }
-
-  function renumberMembers(){
-    const cards = membersList.querySelectorAll('.member-card');
-    cards.forEach((card, i) => {
-      card.querySelector('.member-tag').textContent = `Thành viên ${i + 2}`;
-    });
-  }
-
-  addMemberBtn.addEventListener('click', addMember);
-  // seed with one member field by default for team mode
-  addMember();
 
   agreeCheckbox.addEventListener('change', () => {
     submitBtn.disabled = !agreeCheckbox.checked;
@@ -494,37 +307,13 @@
     formError.textContent = '';
   }
 
-  // Kiểm tra dữ liệu bắt buộc theo từng chế độ trước khi gửi
+  // Kiểm tra dữ liệu bắt buộc trước khi gửi
   function validateForm(){
-    const mode = document.querySelector('input[name="mode"]:checked').value;
-
-    if(mode === 'solo'){
-      const name = document.getElementById('soloName').value.trim();
-      const ign = document.getElementById('soloIGN').value.trim();
-      const discord = document.getElementById('soloDiscord').value.trim();
-      if(!name || !ign || !discord){
-        return 'Vui lòng điền đầy đủ Tên, In-Game Name và Discord ID.';
-      }
-    } else {
-      const teamName = document.getElementById('teamName').value.trim();
-      const capName = form.querySelector('[name="captainName"]').value.trim();
-      const capIGN = form.querySelector('[name="captainIGN"]').value.trim();
-      const capDiscord = form.querySelector('[name="captainDiscord"]').value.trim();
-      if(!teamName || !capName || !capIGN || !capDiscord){
-        return 'Vui lòng điền đầy đủ Tên đội và thông tin Đội trưởng.';
-      }
-      const memberCards = membersList.querySelectorAll('.member-card');
-      if(memberCards.length === 0){
-        return 'Vui lòng thêm ít nhất một thành viên cho đội.';
-      }
-      for(const card of memberCards){
-        const mName = card.querySelector('input[name^="memberName_"]').value.trim();
-        const mIGN = card.querySelector('input[name^="memberIGN_"]').value.trim();
-        const mDiscord = card.querySelector('input[name^="memberDiscord_"]').value.trim();
-        if(!mName || !mIGN || !mDiscord){
-          return 'Vui lòng điền đầy đủ thông tin cho mọi thành viên trong đội (hoặc xoá thành viên trống).';
-        }
-      }
+    const name = document.getElementById('soloName').value.trim();
+    const ign = document.getElementById('soloIGN').value.trim();
+    const discord = document.getElementById('soloDiscord').value.trim();
+    if(!name || !ign || !discord){
+      return 'Vui lòng điền đầy đủ Tên, In-Game Name và Discord ID.';
     }
 
     // Honeypot — nếu bot điền vào, coi như spam
@@ -536,41 +325,20 @@
   }
 
   // Gom dữ liệu form thành object để gửi lên Google Sheet
+  // (giữ mode: 'solo' để tương thích với Apps Script hiện tại)
   function collectFormData(){
-    const mode = document.querySelector('input[name="mode"]:checked').value;
-    const data = {
-      mode: mode,
-      timestamp: new Date().toISOString()
+    return {
+      mode: 'solo',
+      timestamp: new Date().toISOString(),
+      soloName: document.getElementById('soloName').value.trim(),
+      soloIGN: document.getElementById('soloIGN').value.trim(),
+      soloDiscord: document.getElementById('soloDiscord').value.trim()
     };
-
-    if(mode === 'solo'){
-      data.soloName = document.getElementById('soloName').value.trim();
-      data.soloIGN = document.getElementById('soloIGN').value.trim();
-      data.soloDiscord = document.getElementById('soloDiscord').value.trim();
-    } else {
-      data.teamName = document.getElementById('teamName').value.trim();
-      data.captainName = form.querySelector('[name="captainName"]').value.trim();
-      data.captainIGN = form.querySelector('[name="captainIGN"]').value.trim();
-      data.captainDiscord = form.querySelector('[name="captainDiscord"]').value.trim();
-
-      const members = [];
-      membersList.querySelectorAll('.member-card').forEach(card => {
-        members.push({
-          name: card.querySelector('input[name^="memberName_"]').value.trim(),
-          ign: card.querySelector('input[name^="memberIGN_"]').value.trim(),
-          discord: card.querySelector('input[name^="memberDiscord_"]').value.trim()
-        });
-      });
-      data.members = members;
-      // Chuỗi gộp tiện xem nhanh trên Google Sheet
-      data.membersFlat = members.map(m => `${m.name} (${m.ign} / ${m.discord})`).join(' | ');
-    }
-    return data;
   }
 
   // Gửi dữ liệu tới Google Apps Script Web App
   async function submitToSheet(data){
-    // Dùng 'text/plain' + no-cors workaround để tránh lỗi CORS preflight
+    // Dùng 'text/plain' để tránh lỗi CORS preflight
     // vì Google Apps Script Web App không trả header CORS cho JSON request.
     const res = await fetch(CONFIG.SCRIPT_URL, {
       method: 'POST',
