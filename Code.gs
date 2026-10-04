@@ -6,7 +6,7 @@
  */
 
 // Đổi tên các sheet nếu bạn muốn khác đi
-const SOLO_SHEET_NAME = 'Solo';
+const list_SHEET_NAME = 'List';
 const TEAM_SHEET_NAME = 'Team';
 
 function doPost(e) {
@@ -14,8 +14,8 @@ function doPost(e) {
     const data = JSON.parse(e.postData.contents);
     const ss = SpreadsheetApp.getActiveSpreadsheet();
 
-    if (data.mode === 'solo') {
-      writeSoloRow(ss, data);
+    if (data.mode === 'list') {
+      writelistRow(ss, data);
     } else if (data.mode === 'team') {
       writeTeamRow(ss, data);
     } else {
@@ -28,15 +28,15 @@ function doPost(e) {
   }
 }
 
-function writeSoloRow(ss, data) {
-  const sheet = getOrCreateSheet(ss, SOLO_SHEET_NAME,
+function writelistRow(ss, data) {
+  const sheet = getOrCreateSheet(ss, LIST_SHEET_NAME,
     ['Thời gian', 'Tên / Biệt danh', 'In-Game Name', 'Discord ID']);
 
   sheet.appendRow([
     formatTimestamp(data.timestamp),
-    data.soloName || '',
-    data.soloIGN || '',
-    data.soloDiscord || ''
+    data.listName || '',
+    data.listIGN || '',
+    data.listDiscord || ''
   ]);
 }
 
@@ -88,11 +88,11 @@ function testDoPost() {
   const fakeEvent = {
     postData: {
       contents: JSON.stringify({
-        mode: 'solo',
+        mode: 'list',
         timestamp: new Date().toISOString(),
-        soloName: 'Nguyễn Test',
-        soloIGN: 'TestIGN',
-        soloDiscord: '@test_user'
+        listName: 'Nguyễn Test',
+        listIGN: 'TestIGN',
+        listDiscord: '@test_user'
       })
     }
   };
