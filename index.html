@@ -105,7 +105,8 @@
     box-shadow: 0 30px 60px -30px rgba(0,10,40,0.7);
   }
   /* esports corner-bracket framing — signature element */
-  .panel::before, .panel::after{ content:''; position:absolute; width:22px; height:22px; pointer-events:none; }
+  .panel::before, .panel::after,
+  .corner-tl, .corner-br{ content:''; position:absolute; width:22px; height:22px; pointer-events:none; }
   .panel::before{ top:-1px; left:-1px; border-top:2px solid var(--cyan); border-left:2px solid var(--cyan); border-radius: 20px 0 0 0; }
   .panel::after{ bottom:-1px; right:-1px; border-bottom:2px solid var(--cyan); border-right:2px solid var(--cyan); border-radius: 0 0 20px 0; }
 
@@ -138,6 +139,10 @@
     box-shadow: 0 0 0 3px rgba(79,140,255,0.18);
   }
   .grid-2{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .grid-3{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+
+  @keyframes fadeSlide{ from{ opacity:0; transform:translateY(-6px);} to{ opacity:1; transform:translateY(0);} }
+
 
   /* rules / checkbox */
   .rules-box{
@@ -184,7 +189,6 @@
   /* success state */
   .success-panel{ display:none; text-align:center; padding:60px 30px; }
   .success-panel.active{ display:block; animation: fadeSlide 0.4s ease; }
-  @keyframes fadeSlide{ from{ opacity:0; transform:translateY(-6px);} to{ opacity:1; transform:translateY(0);} }
   .success-icon{
     width:64px; height:64px; border-radius:50%; margin:0 auto 20px;
     display:flex; align-items:center; justify-content:center;
@@ -196,7 +200,7 @@
   .success-panel p{ color:var(--text-1); font-size:14.5px; }
 
   @media (max-width: 620px){
-    .grid-2{ grid-template-columns:1fr; }
+    .grid-2, .grid-3{ grid-template-columns:1fr; }
     .panel{ padding:26px 20px; }
   }
 </style>
@@ -211,7 +215,7 @@
 <div class="wrap">
 
   <div class="hero">
-    <div class="eyebrow"><span class="dot"></span> ĐĂNG KÝ THI ĐẤU · CỘNG ĐỒNG DISCORD</div>
+    <div class="eyebrow"><span class="dot"></span> ĐĂNG KÝ THI ĐẤU </div>
     <h1 class="title">4SK OPEN<br>CHAMPIONSHIPS</h1>
     <p class="subtitle">Điền thông tin bên dưới để ghi danh vào giải đấu.</p>
     <div class="hero-rule"></div>
@@ -219,7 +223,7 @@
 
   <form id="regForm" novalidate>
 
-    <!-- Thông tin người chơi -->
+    <!-- Thông tin đăng ký -->
     <div class="panel">
       <div class="section-label">Thông tin người chơi</div>
 
@@ -285,7 +289,7 @@
   // Xem hướng dẫn chi tiết trong README.md
   // ============================================================
   const CONFIG = {
-    SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbwH4hNk913oLzpOzyNklOKMTCL1NWsbx_jvXTjBtGroa3kUUUSItZzds0__J0Cf1KYMoQ/exec'
+    SCRIPT_URL: 'https://script.google.com/macros/s/AKfycby0KgUFrSBxSOH0o2Uo9b3iiWObx_YCwNoURsHpOiMmL4YbDq2D7qZ0zM2YM8uDh041xw/exec'
   };
 
   const agreeCheckbox = document.getElementById('agreeRules');
@@ -325,10 +329,9 @@
   }
 
   // Gom dữ liệu form thành object để gửi lên Google Sheet
-  // (giữ mode: 'solo' để tương thích với Apps Script hiện tại)
   function collectFormData(){
     return {
-      mode: 'solo',
+      mode: 'solo', // giữ nguyên để khớp với Code.gs
       timestamp: new Date().toISOString(),
       soloName: document.getElementById('soloName').value.trim(),
       soloIGN: document.getElementById('soloIGN').value.trim(),
@@ -338,7 +341,7 @@
 
   // Gửi dữ liệu tới Google Apps Script Web App
   async function submitToSheet(data){
-    // Dùng 'text/plain' để tránh lỗi CORS preflight
+    // Dùng 'text/plain' + no-cors workaround để tránh lỗi CORS preflight
     // vì Google Apps Script Web App không trả header CORS cho JSON request.
     const res = await fetch(CONFIG.SCRIPT_URL, {
       method: 'POST',
