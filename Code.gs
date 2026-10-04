@@ -6,7 +6,7 @@
  */
 
 // Đổi tên các sheet nếu bạn muốn khác đi
-const list_SHEET_NAME = 'List';
+const LIST_SHEET_NAME = 'List';
 const TEAM_SHEET_NAME = 'Team';
 
 function doPost(e) {
